@@ -1,1 +1,30 @@
+# package directories
 node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+dist
+_warmup
+
+# Webpack directories
+.webpack
+
+package-lock.json
+
+# Environment variables
+.env*
+
+# Editors configs
+.idea
+.vscode
+.DS_Store
+
+# Build files
+.dist
+.js
+
+# included js files
+
+!webpack.config.js
+!source-map-install.js
