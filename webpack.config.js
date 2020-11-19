@@ -11,8 +11,8 @@ const entries = files.reduce((acc, file) => Object.assign(acc, {
     [getFileName(file)]: file
 }), {})
 
-Object.keys(slsw.lib.entries)
-    .forEach(key => (entries[key] = ['./scripts/source-map-install.js', slsw.lib.entries[key]]))
+// Object.keys(slsw.lib.entries)
+//     .forEach(key => (entries[key] = ['./scripts/source-map-install.js', slsw.lib.entries[key]]))
 
 module.exports = {
     mode: slsw.lib.webpack.isLocal ? 'development' : 'production',

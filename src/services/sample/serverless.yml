@@ -14,12 +14,15 @@ provider:
   profile: mynkmk5
   runtime: nodejs12.x
   stage: dev #choose in cli: serverless --stage {dev/prod} to deploy
-  role: arn:aws:iam::#{AWS::AccountId}:role/lambda-basic-execution # previous hash is not comment due to usage of serverless-pseudo-parameters
+  # role: arn:aws:iam::#{AWS::AccountId}:role/lambda-basic-execution # previous hash is not comment due to usage of serverless-pseudo-parameters
   memorySize: 256
   timeout: 10
   environment: ${self:custom.environment}
   tags:
     project: ${self:custom.service.mainName}
+  apiName: ${opt:stage, self:provider.stage, 'dev'}
+  apiGateway:
+    shouldStartNameWithService: true
 
 custom:
   service:
@@ -28,15 +31,15 @@ custom:
   webpack: ${file(../serverlessCommon/webpack.yml)}
   # warmup: ${file(../serverlessCommon/warmup.yml)}
   layers:
-    layerVersion: 1
-    layerNode: arn:aws:lambda:ap-south-1:527989403245:layer:serverless-ts-mynkmk5-layers-dev:1
+    layerVersion: 2
+    layerNode: arn:aws:lambda:ap-south-1:527989403245:layer:serverless-ts-mynkmk5-layers-dev:2
   # customDomain: ${file(../serverlessCommon/customDomain.yml)}
   # domains: ${file(../serverlessCommon/domains.yml)}
   environment: ${file(../../.envs/.env.${self:provider.stage}.yml)}
   common:
-    cors: ${file(../serverlessCommon/cors.yml)}
+    # cors: ${file(../serverlessCommon/cors.yml)}
     apiGateway: ${file(../serverlessCommon/apiGateway.yml)}
-    authorizer: ${file(../serverlessCommon/authorizer.yml)}
+    # authorizer: ${file(../serverlessCommon/authorizer.yml)}
   isProd:
     dev: false
     prod: true
@@ -44,7 +47,7 @@ custom:
 functions:
   sampleGet:
     handler: sampleGet.handler
-    warmup: false
+    # warmup: false
     layers:
       - ${self:custom.layers.layerNode}
     events:
@@ -52,8 +55,8 @@ functions:
           method: GET
           path: / # is uri which root is ${self:custom.service.subService}
           private: false
-          authorizer: ${self:custom.common.authorizer}
-          cors: ${self:custom.common.cors.${self:provider.stage}.defaultCache}
+          # authorizer: ${self:custom.common.authorizer}
+          # cors: ${self:custom.common.cors.${self:provider.stage}.defaultCache}
 
 resources:
   Resources:
