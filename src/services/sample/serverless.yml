@@ -37,7 +37,7 @@ custom:
   # domains: ${file(../serverlessCommon/domains.yml)}
   environment: ${file(../../.envs/.env.${self:provider.stage}.yml)}
   common:
-    # cors: ${file(../serverlessCommon/cors.yml)}
+    cors: ${file(../serverlessCommon/cors.yml)}
     apiGateway: ${file(../serverlessCommon/apiGateway.yml)}
     # authorizer: ${file(../serverlessCommon/authorizer.yml)}
   isProd:
@@ -56,7 +56,7 @@ functions:
           path: / # is uri which root is ${self:custom.service.subService}
           private: false
           # authorizer: ${self:custom.common.authorizer}
-          # cors: ${self:custom.common.cors.${self:provider.stage}.defaultCache}
+          cors: ${self:custom.common.cors.${self:provider.stage}.defaultCache}
 
 resources:
   Resources:
