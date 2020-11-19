@@ -1,0 +1,24 @@
+service:
+  name: ${self:custom.service.mainName}-layers
+
+provider:
+  name: aws
+  region: ap-south-1
+  profile: mynkmk5
+  runtime: nodejs12.x
+  stage: dev #choose stage to deploy
+  tags:
+    environment: ${self:provider.stage}
+    project: ${self:service.name}
+
+custom:
+  service:
+    mainName: serverless-ts-mynkmk5
+
+layers:
+  layerNode:
+    name: ${self:service.name}-${self:provider.stage}
+    path: layer_node-${self:provider.stage} #remember to copy node_modules to specified layer directory
+    description: All required by ${self:provider.stage} project node modules
+    compatibleRuntimes:
+      - nodejs12.x
