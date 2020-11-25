@@ -8,6 +8,7 @@ import { AWSTypes, ResponsesTypes } from 'lib/types'
 export const validateInput = <Q = {}, B = {}>(validationSchema: JoiObject) => ({
     before: (handler: HandlerLambda<AWSTypes.Event<Q, B>, ResponsesTypes.LambdaResponse>, next: NextFunction) => {
         const { body, queryStringParameters } = handler.event
+        console.log(body,'---registerUserSchema')
         const hasBody = !R.isNilOrEmpty(body)
         const objToValidate = hasBody
             ? body
@@ -17,7 +18,7 @@ export const validateInput = <Q = {}, B = {}>(validationSchema: JoiObject) => ({
 
         if (error) {
             // tslint:disable-next-line no-console
-            console.log('[ERROR]: validate error', error)
+            // console.log('[ERROR]: validate error', error)
 
             throw new HttpError().BadRequest()
         }

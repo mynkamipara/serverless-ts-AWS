@@ -13,7 +13,7 @@ provider:
 
 custom:
   service:
-    mainName: serverless-ts-mynkmk5
+    mainName: nodemodule-zip
 
 layers:
   layerNode:

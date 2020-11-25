@@ -1,9 +1,8 @@
 export const ENVS = {
-    MY_SQL_HOST: process.env.MY_SQL_HOST,
-    MY_SQL_USER: process.env.MY_SQL_USER,
-    MY_SQL_PASSWORD: process.env.MY_SQL_PASSWORD,
-    MY_SQL_DATABASE: process.env.MY_SQL_DATABASE,
-    // MY_SQL_VERSION: process.env.MY_SQL_VERSION,
+    DB_HOST: process.env.DB_HOST,
+    DB_USER: process.env.DB_USER,
+    DB_PASSWORD: process.env.DB_PASSWORD,
+    DB_DATABASE: process.env.DB_DATABASE,
     STAGE: process.env.STAGE,
     // COGNITO_USER_POOL_ID: process.env.COGNITO_USER_POOL_ID,
     // COGNITO_CLIENT_APP_ID: process.env.COGNITO_CLIENT_APP_ID,

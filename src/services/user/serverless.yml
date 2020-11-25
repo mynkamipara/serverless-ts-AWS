@@ -20,19 +20,19 @@ provider:
   environment: ${self:custom.environment}
   tags:
     project: ${self:custom.service.mainName}
-  apiName: ${opt:stage, self:provider.stage, 'dev'}
-  apiGateway:
-    shouldStartNameWithService: true
+  # apiName: ${opt:stage, self:provider.stage, 'dev'}
+  # apiGateway:
+  #   shouldStartNameWithService: true
 
 custom:
   service:
-    mainName: serverless-ts-mynkmk5
-    subService: sample #choose name of the service, it will be path to rest of endpoints e.g myApi.com/sample/{myEndpointUri}
+    mainName: e-voting
+    subService: users #choose name of the service, it will be path to rest of endpoints e.g myApi.com/sample/{myEndpointUri}
   webpack: ${file(../serverlessCommon/webpack.yml)}
   # warmup: ${file(../serverlessCommon/warmup.yml)}
   layers:
     layerVersion: 2
-    layerNode: arn:aws:lambda:ap-south-1:527989403245:layer:serverless-ts-mynkmk5-layers-dev:2
+    layerNode: arn:aws:lambda:ap-south-1:527989403245:layer:nodemodule-zip-layers-dev:2
   # customDomain: ${file(../serverlessCommon/customDomain.yml)}
   # domains: ${file(../serverlessCommon/domains.yml)}
   environment: ${file(../../.envs/.env.${self:provider.stage}.yml)}
@@ -45,8 +45,26 @@ custom:
     prod: true
 
 functions:
-  sampleGet:
-    handler: sampleGet.handler
+  registerUser:
+    handler: users.registerUser
+    name: Register
+    # warmup: false
+    layers:
+      - ${self:custom.layers.layerNode}
+    events:
+      - http:
+          method: POST
+          path: / # is uri which root is ${self:custom.service.subService}
+          private: false
+          # authorizer: ${self:custom.common.authorizer}
+          authorizationToken: allow
+          cors: ${self:custom.common.cors.${self:provider.stage}.defaultCache}
+  # authorizerFunc:
+  #   handler: sampleGet.authorizerFunc
+
+  getUserList:
+    handler: users.submit
+    name: getUserList
     # warmup: false
     layers:
       - ${self:custom.layers.layerNode}
@@ -56,8 +74,10 @@ functions:
           path: / # is uri which root is ${self:custom.service.subService}
           private: false
           # authorizer: ${self:custom.common.authorizer}
+          authorizationToken: allow
           cors: ${self:custom.common.cors.${self:provider.stage}.defaultCache}
-
+  # authorizerFunc:
+  #   handler: sampleGet.authorizerFunc
 resources:
   Resources:
     GatewayResponseExpiredToken: ${self:custom.common.apiGateway.GatewayResponseExpiredToken}

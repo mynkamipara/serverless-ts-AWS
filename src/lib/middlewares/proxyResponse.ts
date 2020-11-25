@@ -14,7 +14,6 @@ const isBase64Encoded = false
 export const proxyResponse = <Q = {}, B = {}>() => ({
     after: (handler: HandlerLambda<AWSTypes.Event<Q, B>, ResponsesTypes.FullMiddlewareResponse>, next: NextFunction) => {
         const { headers } = handler.response
-
         try {
             const {
                 payload = {},

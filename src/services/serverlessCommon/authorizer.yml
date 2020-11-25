@@ -1,4 +1,4 @@
-arn: arn:aws:lambda:${self:provider.region}:#{AWS::AccountId}:function:YOUR_AUTHORIZER_LAMBDA_NAME-${self:provider.stage}
+arn: arn:aws:lambda:ap-south-1:527989403245:function:auth-token-mynk
 resultTtlInSeconds: 0
 identitySource: method.request.header.Authorization
 type: token

@@ -7,6 +7,7 @@ export const withDB: WithDB = lambdaLogic => async event => {
     try {
         // in case lambda has plain logic without connection to DB
         if (!event.dbClient) {
+            console.log('dfvgbb')
             const result = await lambdaLogic(event)
 
             return successfulResponseWrapper(result)

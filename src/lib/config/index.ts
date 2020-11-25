@@ -1,1 +1,1 @@
-export * from './sqlDBs'
+export * from './DBs'
