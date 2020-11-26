@@ -25,10 +25,7 @@ const registerLambda: AWSTypes.LambdaLogic<Query> = async event => {
       return data;
 }
 
-// export const registerUser = handlerWrapper<Query>(registerLambda,registerUserSchema);
-export const registerUser = (event)=>{
-    console.log(event);
-}
+export const registerUser = handlerWrapper<Query>(registerLambda,registerUserSchema);
 
 
 const getUserListLambda: AWSTypes.LambdaLogic<Query> = async (event:any) => {

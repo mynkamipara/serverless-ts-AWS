@@ -20,9 +20,9 @@ provider:
   environment: ${self:custom.environment}
   tags:
     project: ${self:custom.service.mainName}
-  # apiName: ${opt:stage, self:provider.stage, 'dev'}
-  # apiGateway:
-  #   shouldStartNameWithService: true
+  apiName: ${opt:stage, self:provider.stage, 'dev'}
+  apiGateway:
+    shouldStartNameWithService: true
 
 custom:
   service:
@@ -63,7 +63,7 @@ functions:
   #   handler: sampleGet.authorizerFunc
 
   getUserList:
-    handler: users.submit
+    handler: users.getUserList
     name: getUserList
     # warmup: false
     layers:
